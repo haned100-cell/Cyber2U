@@ -16,19 +16,12 @@ export interface User {
 export async function findOrCreateUser(email: string): Promise<User> {
   const normalized = email.toLowerCase().trim();
 
-  // Try to find existing user
-  const existing = await pool.query(
-    'SELECT * FROM users WHERE email = $1',
-    [normalized]
-  );
-
-  if (existing.rows.length > 0) {
-    return existing.rows[0];
-  }
-
-  // Create new user
+  // Use an upsert to avoid race conditions when two requests create the same user concurrently.
   const result = await pool.query(
-    'INSERT INTO users (email) VALUES ($1) RETURNING *',
+    `INSERT INTO users (email)
+     VALUES ($1)
+     ON CONFLICT (email) DO UPDATE SET email = EXCLUDED.email
+     RETURNING *`,
     [normalized]
   );
 
