@@ -21,7 +21,16 @@ test.describe('Cyber2U Walkthrough Video', () => {
     await page.goto('/dashboard');
     await expect(page.getByRole('heading', { name: 'Your Cyber Literacy Journey' })).toBeVisible();
     await expect(page.getByText(/Quizzes Completed/i)).toBeVisible();
-    await page.waitForTimeout(1500);
+    await expect(page.getByRole('heading', { name: 'Customize Your Cybersecurity Interests' })).toBeVisible();
+    await page.waitForTimeout(600);
+
+    // 3a) Interest customization
+    await page.getByLabel('Ransomware').check();
+    await page.getByLabel('Data Privacy').check();
+    await page.waitForTimeout(400);
+    await page.getByRole('button', { name: 'Save Interest Areas' }).click();
+    await expect(page.getByText(/Saved your cybersecurity interest areas/i)).toBeVisible();
+    await page.waitForTimeout(1400);
 
     // 4) Quiz interaction
     await page.goto('/quiz');
@@ -49,6 +58,9 @@ test.describe('Cyber2U Walkthrough Video', () => {
     // 5) Updated dashboard
     await page.goto('/dashboard');
     await expect(page.getByRole('heading', { name: 'Your Cyber Literacy Journey' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Customize Your Cybersecurity Interests' })).toBeVisible();
+    await expect(page.getByLabel('Ransomware')).toBeChecked();
+    await expect(page.getByLabel('Data Privacy')).toBeChecked();
     await page.waitForTimeout(1200);
 
     // 6) MailHog inbox visualisation
