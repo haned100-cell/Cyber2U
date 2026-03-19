@@ -20,6 +20,13 @@ interface ProgressData {
   topicScores: Record<string, number>;
 }
 
+interface ProfileData {
+  id: number;
+  email: string;
+  interestTopics: string[];
+  created_at: string;
+}
+
 export interface CampaignPayload {
   title: string;
   description?: string;
@@ -112,6 +119,18 @@ class ApiClient {
   async bootstrapDemoUser(email?: string): Promise<DemoBootstrapResponse> {
     const response = await this.client.post<DemoBootstrapResponse>('/auth/demo-bootstrap', { email });
     return response.data;
+  }
+
+  async getProfile(): Promise<ProfileData> {
+    const response = await this.client.get<ProfileData>('/auth/profile');
+    return response.data;
+  }
+
+  async updateInterestTopics(interestTopics: string[]): Promise<string[]> {
+    const response = await this.client.patch<{ interestTopics: string[] }>('/auth/profile/interests', {
+      interestTopics,
+    });
+    return response.data.interestTopics;
   }
 
   // Progress

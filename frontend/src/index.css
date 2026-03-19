@@ -71,3 +71,31 @@ button:disabled {
   padding: 16px;
   margin-bottom: 12px;
 }
+
+.interests-panel {
+  margin-top: 24px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 20px;
+}
+
+.interest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 10px;
+  margin: 12px 0 18px;
+}
+
+.interest-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid #d1d9e0;
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.interest-option input {
+  width: auto;
+  margin: 0;
+}

@@ -6,6 +6,7 @@ import config from '../config';
 export interface User {
   id: number;
   email: string;
+  interest_topics: string[];
   created_at: string;
   is_active: boolean;
 }
@@ -107,6 +108,43 @@ export async function getUserById(userId: number): Promise<User | null> {
   );
 
   return result.rows[0] || null;
+}
+
+/**
+ * Get user-selected cybersecurity interest topics
+ */
+export async function getUserInterestTopics(userId: number): Promise<string[]> {
+  const result = await pool.query(
+    `SELECT COALESCE(interest_topics, ARRAY[]::text[]) AS interest_topics
+     FROM users
+     WHERE id = $1 AND is_active = true`,
+    [userId]
+  );
+
+  if (result.rows.length === 0) {
+    return [];
+  }
+
+  return result.rows[0].interest_topics || [];
+}
+
+/**
+ * Update user-selected cybersecurity interest topics
+ */
+export async function updateUserInterestTopics(userId: number, interestTopics: string[]): Promise<string[]> {
+  const result = await pool.query(
+    `UPDATE users
+     SET interest_topics = $2, updated_at = NOW()
+     WHERE id = $1 AND is_active = true
+     RETURNING COALESCE(interest_topics, ARRAY[]::text[]) AS interest_topics`,
+    [userId, interestTopics]
+  );
+
+  if (result.rows.length === 0) {
+    return [];
+  }
+
+  return result.rows[0].interest_topics || [];
 }
 
 /**

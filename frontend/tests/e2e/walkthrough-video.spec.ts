@@ -14,6 +14,7 @@ test.describe('Cyber2U Walkthrough Video', () => {
     // 2) Bootstrap seeded demo user
     await page.goto('/demo-user');
     await expect(page.getByText(/Demo user ready|Bootstrapping demo user/i)).toBeVisible();
+    await expect(page.getByText(/Could not create demo user data/i)).toHaveCount(0);
     await page.waitForTimeout(1800);
 
     // 3) Dashboard visualisation

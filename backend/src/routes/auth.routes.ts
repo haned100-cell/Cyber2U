@@ -6,6 +6,8 @@ import {
   generateSessionToken,
   createSession,
   getUserById,
+  getUserInterestTopics,
+  updateUserInterestTopics,
   recordConsent,
   createAuditLog,
 } from '../services/auth.service';
@@ -15,6 +17,19 @@ import config from '../config';
 import { bootstrapDemoUser } from '../services/demo.service';
 
 const router = Router();
+
+const ALLOWED_INTEREST_TOPICS = new Set([
+  'phishing',
+  'password_hygiene',
+  'social_engineering',
+  'malware',
+  'ransomware',
+  'identity_theft',
+  'data_privacy',
+  'device_security',
+  'safe_browsing',
+  'incident_response',
+]);
 
 /**
  * POST /api/auth/demo-bootstrap
@@ -190,11 +205,79 @@ router.get('/profile', authenticateToken, async (req: Request, res: Response) =>
     res.json({
       id: user.id,
       email: user.email,
+      interestTopics: user.interest_topics || [],
       created_at: user.created_at,
     });
   } catch (error) {
     console.error('Profile fetch error:', error);
     res.status(500).json({ error: 'Failed to fetch profile' });
+  }
+});
+
+/**
+ * PATCH /api/auth/profile/interests
+ * Update authenticated user cybersecurity interest topics
+ */
+router.patch('/profile/interests', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const inputTopics = req.body?.interestTopics;
+
+    if (!Array.isArray(inputTopics)) {
+      res.status(400).json({ error: 'interestTopics must be an array' });
+      return;
+    }
+
+    const normalizedTopics = Array.from(
+      new Set(
+        inputTopics
+          .filter((value): value is string => typeof value === 'string')
+          .map((value) => value.toLowerCase().trim())
+          .filter((value) => value.length > 0)
+      )
+    );
+
+    if (normalizedTopics.length > 10) {
+      res.status(400).json({ error: 'A maximum of 10 interest topics is allowed' });
+      return;
+    }
+
+    const hasInvalidTopic = normalizedTopics.some((topic) => !ALLOWED_INTEREST_TOPICS.has(topic));
+    if (hasInvalidTopic) {
+      res.status(400).json({ error: 'One or more interest topics are invalid' });
+      return;
+    }
+
+    const updatedTopics = await updateUserInterestTopics(req.userId!, normalizedTopics);
+
+    await createAuditLog(
+      req.userId ?? null,
+      'profile_interests_updated',
+      'user',
+      req.userId,
+      null,
+      { interestTopics: updatedTopics },
+      req.ip,
+      req.headers['user-agent']
+    );
+
+    res.json({ interestTopics: updatedTopics });
+  } catch (error) {
+    console.error('Profile interests update error:', error);
+    res.status(500).json({ error: 'Failed to update profile interests' });
+  }
+});
+
+/**
+ * GET /api/auth/profile/interests
+ * Get authenticated user cybersecurity interest topics
+ */
+router.get('/profile/interests', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const interestTopics = await getUserInterestTopics(req.userId!);
+    res.json({ interestTopics });
+  } catch (error) {
+    console.error('Profile interests fetch error:', error);
+    res.status(500).json({ error: 'Failed to fetch profile interests' });
   }
 });
 

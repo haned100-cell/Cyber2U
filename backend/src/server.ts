@@ -23,7 +23,9 @@ app.use(cors({
 // Rate limiting
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: config.nodeEnv === 'development' ? 1000 : 100, // avoid local test runs tripping the limiter
+  standardHeaders: true,
+  legacyHeaders: false,
 });
 app.use(limiter);
 
