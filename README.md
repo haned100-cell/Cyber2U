@@ -10,6 +10,14 @@ Cyber2U is an interactive, email-driven platform designed to raise cybersecurity
 - **Admin content workflow** for creating, reviewing, and scheduling campaigns
 - **Analytics reporting** aligned to project objectives
 
+## App Screenshots
+
+These screenshots are generated from a Playwright run and committed to this repository.
+
+![Signup Page](docs/screenshots/01-signup-page.png)
+![Dashboard Page](docs/screenshots/02-dashboard-page.png)
+![Quiz Page](docs/screenshots/03-quiz-page.png)
+
 ## Features
 
 ### Phase 1: Foundation (Current)
@@ -59,6 +67,32 @@ curl http://localhost:3000/health  # Backend
 curl http://localhost:3001        # Frontend
 open http://localhost:8025         # MailHog email UI
 ```
+
+### Two-Container Simulation Mode
+
+The compose stack now includes:
+1. Backend stack: backend + postgres + mailhog + frontend
+2. Simulated user container: sim-user (acts like a user signing up and checking received mail)
+
+Run backend stack:
+
+```bash
+docker-compose up -d postgres mailhog backend frontend
+```
+
+Run simulated user flow:
+
+```bash
+docker-compose --profile simulation up --build sim-user
+```
+
+The sim-user container will:
+1. Submit signup to backend
+2. Poll MailHog inbox API
+3. Extract magic-link token from received email
+4. Verify account and fetch profile
+
+Inspect mailbox manually at: http://localhost:8025
 
 ### Local Development (without Docker)
 
@@ -192,6 +226,10 @@ npm run test:watch
 # Frontend tests (placeholder)
 cd frontend
 npm test
+
+# Playwright smoke and screenshot tests
+cd frontend
+npm run test:e2e
 ```
 
 ## GDPR & Security

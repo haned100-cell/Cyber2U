@@ -66,5 +66,22 @@ services:
       - ./frontend/src:/app/src
     command: npm run dev
 
+  sim-user:
+    build:
+      context: ./sim-user
+      dockerfile: Dockerfile
+    environment:
+      BACKEND_URL: http://backend:3000
+      MAILHOG_URL: http://mailhog:8025
+      POLL_ATTEMPTS: 30
+      POLL_INTERVAL_MS: 1500
+    depends_on:
+      backend:
+        condition: service_started
+      mailhog:
+        condition: service_healthy
+    profiles:
+      - simulation
+
 volumes:
   postgres_data:
