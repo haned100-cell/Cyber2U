@@ -12,7 +12,9 @@ export const pool = new Pool({
 });
 
 export async function initializeDatabase(): Promise<void> {
-  const migrationsDir = path.join(__dirname, 'migrations');
+  const directMigrationsDir = path.join(__dirname, 'migrations');
+  const nestedMigrationsDir = path.join(__dirname, 'db', 'migrations');
+  const migrationsDir = fs.existsSync(directMigrationsDir) ? directMigrationsDir : nestedMigrationsDir;
   const files = fs.readdirSync(migrationsDir).sort();
 
   for (const file of files) {
