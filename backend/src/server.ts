@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes';
 import quizRoutes from './routes/quiz.routes';
 import progressRoutes from './routes/progress.routes';
 import webhookRoutes from './routes/webhook.routes';
+import campaignRoutes from './routes/campaign.routes';
 
 const app: Express = express();
 
@@ -45,9 +46,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/quiz', quizRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/webhook', webhookRoutes);
+app.use('/api/campaigns', campaignRoutes);
 
 // TODO: Add additional routes
-// app.use('/api/campaigns', campaignRoutes);
 // app.use('/api/analytics', analyticsRoutes);
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

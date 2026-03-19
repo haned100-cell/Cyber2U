@@ -13,6 +13,25 @@ interface ProgressData {
   topicScores: Record<string, number>;
 }
 
+export interface CampaignPayload {
+  title: string;
+  description?: string;
+  campaignType: string;
+  subjectLine?: string;
+  emailBodyHtml?: string;
+  emailBodyText?: string;
+  caseStudyContent?: string;
+}
+
+export interface Campaign {
+  id: number;
+  title: string;
+  description: string | null;
+  campaign_type: string;
+  status: 'draft' | 'review' | 'approved' | 'scheduled' | 'sent' | 'archived';
+  scheduled_send_at: string | null;
+}
+
 class ApiClient {
   private client: AxiosInstance;
 
@@ -62,6 +81,53 @@ class ApiClient {
 
   async submitQuizAnswers(sessionId: number, answers: Record<number, number>) {
     const response = await this.client.post(`/quiz/${sessionId}/submit`, { answers });
+    return response.data;
+  }
+
+  // Campaigns
+  async listCampaigns(status?: string): Promise<Campaign[]> {
+    const response = await this.client.get<{ campaigns: Campaign[] }>('/campaigns', {
+      params: status ? { status } : undefined,
+    });
+    return response.data.campaigns;
+  }
+
+  async createCampaign(payload: CampaignPayload): Promise<Campaign> {
+    const response = await this.client.post<{ campaign: Campaign }>('/campaigns', payload);
+    return response.data.campaign;
+  }
+
+  async updateCampaign(id: number, payload: Partial<CampaignPayload>): Promise<Campaign> {
+    const response = await this.client.put<{ campaign: Campaign }>(`/campaigns/${id}`, payload);
+    return response.data.campaign;
+  }
+
+  async submitCampaignForReview(id: number): Promise<Campaign> {
+    const response = await this.client.post<{ campaign: Campaign }>(`/campaigns/${id}/submit-review`);
+    return response.data.campaign;
+  }
+
+  async approveCampaign(id: number, reviewNotes?: string): Promise<Campaign> {
+    const response = await this.client.post<{ campaign: Campaign }>(`/campaigns/${id}/approve`, {
+      reviewNotes,
+    });
+    return response.data.campaign;
+  }
+
+  async scheduleCampaign(id: number, scheduledSendAt: string): Promise<Campaign> {
+    const response = await this.client.post<{ campaign: Campaign }>(`/campaigns/${id}/schedule`, {
+      scheduledSendAt,
+    });
+    return response.data.campaign;
+  }
+
+  async sendCampaignNow(id: number): Promise<{ campaign: Campaign; recipientCount: number }> {
+    const response = await this.client.post<{ campaign: Campaign; recipientCount: number }>(`/campaigns/${id}/send-now`);
+    return response.data;
+  }
+
+  async runScheduledCampaigns(): Promise<{ processed: number }> {
+    const response = await this.client.post<{ processed: number }>('/campaigns/run-scheduled');
     return response.data;
   }
 }
