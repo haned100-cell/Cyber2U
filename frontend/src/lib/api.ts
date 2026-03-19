@@ -6,6 +6,13 @@ interface AuthResponse {
   email: string;
 }
 
+interface DemoBootstrapResponse {
+  token: string;
+  userId: number;
+  email: string;
+  completedSessions: number;
+}
+
 interface ProgressData {
   totalQuizzesCompleted: number;
   averageScore: number;
@@ -100,6 +107,11 @@ class ApiClient {
   async logout(): Promise<void> {
     await this.client.post('/auth/logout');
     localStorage.removeItem('authToken');
+  }
+
+  async bootstrapDemoUser(email?: string): Promise<DemoBootstrapResponse> {
+    const response = await this.client.post<DemoBootstrapResponse>('/auth/demo-bootstrap', { email });
+    return response.data;
   }
 
   // Progress

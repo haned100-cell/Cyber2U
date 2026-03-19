@@ -96,6 +96,14 @@ The sim-user container will:
 
 Inspect mailbox manually at: http://localhost:8025
 
+### Demo User Route (Seed Visible Data)
+
+If dashboard/quiz are empty, use this route to create a demo user, complete sample quizzes, and sign in automatically:
+
+`http://localhost:3001/demo-user`
+
+This route calls `POST /api/auth/demo-bootstrap`, seeds sample completed quiz sessions, recalculates progress, stores an auth token in browser storage, and redirects to dashboard.
+
 ### Local Development (without Docker)
 
 **Backend:**

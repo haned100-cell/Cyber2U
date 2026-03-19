@@ -24,6 +24,8 @@ interface QuizSubmitResponse {
 
 export const QuizPlayer: React.FC = () => {
   const [quiz, setQuiz] = useState<QuizData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
@@ -40,6 +42,9 @@ export const QuizPlayer: React.FC = () => {
         setQuiz(response.data);
       } catch (err) {
         console.error('Failed to fetch quiz:', err);
+        setError('Could not load quiz for current user.');
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -69,7 +74,18 @@ export const QuizPlayer: React.FC = () => {
     }
   };
 
-  if (!quiz) return <div>Loading quiz...</div>;
+  if (loading) return <div>Loading quiz...</div>;
+  if (!quiz) {
+    return (
+      <div className="quiz-container">
+        <h2>Quiz unavailable</h2>
+        <p>{error}</p>
+        <p>
+          Seed demo data first: <a href="/demo-user">Create demo user data</a>
+        </p>
+      </div>
+    );
+  }
   if (submitted) {
     return (
       <div className="quiz-result">

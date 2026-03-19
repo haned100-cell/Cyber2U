@@ -11,6 +11,7 @@ interface Progress {
 export const LearnerDashboard: React.FC = () => {
   const [progress, setProgress] = useState<Progress | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchProgress = async () => {
@@ -22,6 +23,7 @@ export const LearnerDashboard: React.FC = () => {
         setProgress(response.data);
       } catch (err) {
         console.error('Failed to fetch progress:', err);
+        setError('No authenticated user progress found yet.');
       } finally {
         setLoading(false);
       }
@@ -31,7 +33,17 @@ export const LearnerDashboard: React.FC = () => {
   }, []);
 
   if (loading) return <div>Loading...</div>;
-  if (!progress) return <div>No progress data available.</div>;
+  if (!progress) {
+    return (
+      <div className="dashboard">
+        <h2>No progress data available.</h2>
+        <p>{error}</p>
+        <p>
+          Start with seeded demo data: <a href="/demo-user">Create demo user data</a>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="dashboard">

@@ -12,8 +12,36 @@ import {
 import { sendEmail, generateMagicLinkEmail, sendWelcomeEmail } from '../services/email.service';
 import { authenticateToken } from '../middleware/auth';
 import config from '../config';
+import { bootstrapDemoUser } from '../services/demo.service';
 
 const router = Router();
+
+/**
+ * POST /api/auth/demo-bootstrap
+ * Create/seed a demo user with completed quiz sessions and return a token.
+ */
+router.post('/demo-bootstrap', async (req: Request, res: Response) => {
+  try {
+    const email = typeof req.body?.email === 'string' ? req.body.email : undefined;
+    const result = await bootstrapDemoUser(email);
+
+    await createAuditLog(
+      result.userId,
+      'demo_bootstrap',
+      'user',
+      result.userId,
+      null,
+      { completedSessions: result.completedSessions },
+      req.ip,
+      req.headers['user-agent']
+    );
+
+    res.json(result);
+  } catch (error) {
+    console.error('Demo bootstrap error:', error);
+    res.status(500).json({ error: 'Failed to bootstrap demo user' });
+  }
+});
 
 /**
  * POST /api/auth/request-magic-link
