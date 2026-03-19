@@ -11,7 +11,12 @@ import {
   recordConsent,
   createAuditLog,
 } from '../services/auth.service';
-import { sendEmail, generateMagicLinkEmail, sendWelcomeEmail } from '../services/email.service';
+import {
+  sendEmail,
+  generateMagicLinkEmail,
+  sendWelcomeEmail,
+  sendDemoQuizEmail,
+} from '../services/email.service';
 import { authenticateToken } from '../middleware/auth';
 import config from '../config';
 import { bootstrapDemoUser } from '../services/demo.service';
@@ -186,6 +191,40 @@ router.post('/logout', authenticateToken, async (req: Request, res: Response) =>
   } catch (error) {
     console.error('Logout error:', error);
     res.status(500).json({ error: 'Logout failed' });
+  }
+});
+
+/**
+ * POST /api/auth/send-demo-quiz-email
+ * Send a sample quiz email to the authenticated user (used for demos/e2e)
+ */
+router.post('/send-demo-quiz-email', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const user = await getUserById(req.userId!);
+
+    if (!user) {
+      res.status(404).json({ error: 'User not found' });
+      return;
+    }
+
+    const quizLink = `${config.appUrl}/quiz`;
+    await sendDemoQuizEmail(user.email, quizLink);
+
+    await createAuditLog(
+      req.userId ?? null,
+      'demo_quiz_email_sent',
+      'user',
+      req.userId,
+      null,
+      { email: user.email, quizLink },
+      req.ip,
+      req.headers['user-agent']
+    );
+
+    res.json({ message: 'Demo quiz email sent', email: user.email });
+  } catch (error) {
+    console.error('Demo quiz email send error:', error);
+    res.status(500).json({ error: 'Failed to send demo quiz email' });
   }
 });
 

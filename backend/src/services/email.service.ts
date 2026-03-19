@@ -88,6 +88,52 @@ export function generateMagicLinkEmail(verificationLink: string, email: string):
   return { html, text };
 }
 
+export function generateDemoQuizEmail(quizLink: string): { html: string; text: string } {
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 640px; margin: 0 auto; color: #0f172a;">
+      <h2 style="margin-bottom: 8px;">Weekly Cyber2U Quiz</h2>
+      <p style="margin-top: 0; color: #334155;">Complete this mini challenge to improve your cybersecurity awareness.</p>
+
+      <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 20px 0;">
+        <h3 style="margin-top: 0;">Question 1</h3>
+        <p style="font-size: 15px; line-height: 1.5;">
+          What is the safest response to an urgent password reset email you did not request?
+        </p>
+        <ol style="padding-left: 20px; line-height: 1.7;">
+          <li>Click the link immediately to secure your account.</li>
+          <li>Reply with your employee ID and current password.</li>
+          <li>Open your browser and navigate to the known official website directly.</li>
+          <li>Forward it to teammates and ask if it looks real.</li>
+        </ol>
+      </div>
+
+      <p style="margin: 24px 0;">
+        <a href="${quizLink}" style="display: inline-block; background: #0f766e; color: #ffffff; text-decoration: none; padding: 12px 20px; border-radius: 6px; font-weight: bold;">
+          Open Interactive Quiz
+        </a>
+      </p>
+
+      <p style="color: #475569; font-size: 13px;">Tip: Never trust urgency. Verify through a trusted channel first.</p>
+    </div>
+  `;
+
+  const text = `
+Weekly Cyber2U Quiz
+
+Question 1:
+What is the safest response to an urgent password reset email you did not request?
+
+1) Click the link immediately to secure your account.
+2) Reply with your employee ID and current password.
+3) Open your browser and navigate to the known official website directly.
+4) Forward it to teammates and ask if it looks real.
+
+Open Interactive Quiz: ${quizLink}
+  `.trim();
+
+  return { html, text };
+}
+
 export async function sendWelcomeEmail(email: string): Promise<void> {
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px;">
@@ -113,6 +159,17 @@ export async function sendWelcomeEmail(email: string): Promise<void> {
   await sendEmail({
     to: email,
     subject: 'Welcome to Cyber2You - Your Cybersecurity Education Starts Here',
+    html,
+    text,
+  });
+}
+
+export async function sendDemoQuizEmail(email: string, quizLink: string): Promise<void> {
+  const { html, text } = generateDemoQuizEmail(quizLink);
+
+  await sendEmail({
+    to: email,
+    subject: 'Cyber2U Weekly Quiz: Spot the Phish',
     html,
     text,
   });
