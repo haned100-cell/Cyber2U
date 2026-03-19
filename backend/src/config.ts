@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 interface Config {
+  appUrl: string;
   port: number;
   nodeEnv: string;
   database: {
@@ -29,6 +30,7 @@ interface Config {
 }
 
 const config: Config = {
+  appUrl: process.env.APP_URL || 'http://localhost:3001',
   port: parseInt(process.env.PORT || '3000', 10),
   nodeEnv: process.env.NODE_ENV || 'development',
   database: {

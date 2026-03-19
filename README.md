@@ -24,9 +24,9 @@ Cyber2U is an interactive, email-driven platform designed to raise cybersecurity
 - [ ] GDPR consent capture
 
 ### Phase 3: Formsubmit Integration
-- [ ] Signup form ingestion
-- [ ] User deduplication and normalization
-- [ ] Verification email workflow
+- [x] Signup form ingestion (webhook endpoint)
+- [x] User deduplication and normalization
+- [x] Verification email workflow
 
 ### Phase 4-8: Core Features (Planned)
 - [ ] Quiz engine and scoring
@@ -109,6 +109,20 @@ npm run migrate
 - `POST /api/auth/request-magic-link` — Request email verification
 - `POST /api/auth/verify` — Verify magic link and create session
 - `GET /api/auth/profile` — Get authenticated user profile
+
+### Formsubmit Webhook
+- `POST /api/webhook/formsubmit` — Accepts formsubmit payload, normalizes email, creates verification token, and sends magic-link email
+
+Example HTML form (formsubmit -> Cyber2U webhook):
+
+```html
+<form action="https://formsubmit.co/your-formsubmit-id" method="POST">
+    <input type="email" name="email" required />
+    <input type="hidden" name="source" value="landing-page" />
+    <input type="hidden" name="_next" value="http://localhost:3001/thanks" />
+    <button type="submit">Join Cyber2U</button>
+</form>
+```
 
 ### Quizzes
 - `GET /api/quiz/weekly` — Get weekly mini-quiz

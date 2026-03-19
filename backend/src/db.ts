@@ -1,5 +1,5 @@
-import { Pool, Client } from 'pg';
-import config from '../config';
+import { Pool } from 'pg';
+import config from './config';
 import fs from 'fs';
 import path from 'path';
 

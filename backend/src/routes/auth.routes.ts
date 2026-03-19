@@ -129,7 +129,7 @@ router.post('/logout', authenticateToken, async (req: Request, res: Response) =>
   try {
     // In real implementation, would soft-delete or mark session as revoked
     await createAuditLog(
-      req.userId,
+      req.userId ?? null,
       'logout',
       'session',
       undefined,

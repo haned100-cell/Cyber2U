@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export const CampaignScheduler: React.FC = () => {
   const [sendTime, setSendTime] = useState('');
-  const [recipientCount, setRecipientCount] = useState(0);
+  const [recipientCount] = useState(0);
 
   const handleSchedule = async () => {
     // TODO: POST to /api/campaigns/:id/schedule

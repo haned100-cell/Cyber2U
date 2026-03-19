@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export const ContentEditor: React.FC = () => {
   const [content, setContent] = useState('');
@@ -23,7 +23,12 @@ export const ContentEditor: React.FC = () => {
         </div>
         <div className="form-group">
           <label>Email Body</label>
-          <textarea placeholder="Write your email content here..." rows={10} />
+          <textarea
+            placeholder="Write your email content here..."
+            rows={10}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
         </div>
         <div className="form-group">
           <label>Status</label>
