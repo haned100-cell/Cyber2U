@@ -20,6 +20,9 @@ These screenshots are generated from a Playwright run and committed to this repo
 ![MailHog Inbox](docs/screenshots/04-mailhog-inbox.png)
 ![MailHog Message](docs/screenshots/05-mailhog-message.png)
 
+Walkthrough video (Playwright-generated):
+- [Cyber2U App Walkthrough](docs/videos/cyber2u-walkthrough.webm)
+
 ## Features
 
 ### Phase 1: Foundation (Current)
