@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { api } from '../lib/api';
 
 export const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -11,7 +11,7 @@ export const Signup: React.FC = () => {
     setError('');
     
     try {
-      await axios.post('/api/auth/request-magic-link', { email });
+      await api.requestMagicLink(email);
       setSubmitted(true);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Failed to sign up');
