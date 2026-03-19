@@ -32,6 +32,41 @@ export interface Campaign {
   scheduled_send_at: string | null;
 }
 
+export interface AnalyticsSummary {
+  openRate: number;
+  clickThroughRate: number;
+  quizParticipation: number;
+  averageScore: number;
+  scoreImprovement: number;
+  listGrowth: number;
+  totalUsers: number;
+  totalCampaignsSent: number;
+}
+
+export interface QuarterlyReport {
+  period: {
+    year: number;
+    quarter: number;
+    startDate: string;
+    endDate: string;
+  };
+  objective1: {
+    openRate: number;
+    clickThroughRate: number;
+    listGrowth: number;
+  };
+  objective2: {
+    averageScore: number;
+    quizParticipation: number;
+    scoreImprovement: number;
+  };
+  objective3: {
+    campaignsSent: number;
+    totalRecipients: number;
+    averageOpenRate: number;
+  };
+}
+
 class ApiClient {
   private client: AxiosInstance;
 
@@ -129,6 +164,39 @@ class ApiClient {
   async runScheduledCampaigns(): Promise<{ processed: number }> {
     const response = await this.client.post<{ processed: number }>('/campaigns/run-scheduled');
     return response.data;
+  }
+
+  // Analytics
+  async getAnalyticsSummary(): Promise<AnalyticsSummary> {
+    const response = await this.client.get<{ summary: AnalyticsSummary }>('/analytics/summary');
+    return response.data.summary;
+  }
+
+  async getCampaignAnalytics(campaignId: number): Promise<{
+    campaignId: number;
+    title: string;
+    status: string;
+    deliveredCount: number;
+    openedCount: number;
+    clickedCount: number;
+    unsubscribedCount: number;
+    bounceCount: number;
+    openRate: number;
+    clickThroughRate: number;
+  }> {
+    const response = await this.client.get(`/analytics/campaigns/${campaignId}`);
+    return response.data.campaign;
+  }
+
+  async recalculateCampaignAnalytics(campaignId: number): Promise<void> {
+    await this.client.post(`/analytics/campaigns/${campaignId}/recalculate`);
+  }
+
+  async getQuarterlyReport(year: number, quarter: number): Promise<QuarterlyReport> {
+    const response = await this.client.get<{ report: QuarterlyReport }>('/analytics/quarterly-report', {
+      params: { year, quarter },
+    });
+    return response.data.report;
   }
 }
 

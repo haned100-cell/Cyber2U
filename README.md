@@ -33,7 +33,7 @@ Cyber2U is an interactive, email-driven platform designed to raise cybersecurity
 - [ ] Progress tracking
 - [ ] Content operations admin interface
 - [ ] Campaign scheduling and delivery
-- [ ] Analytics and reporting
+- [x] Analytics and reporting (summary + quarterly endpoints)
 
 ## Quick Start
 
@@ -143,6 +143,12 @@ Example HTML form (formsubmit -> Cyber2U webhook):
 ### Analytics (Admin)
 - `GET /api/analytics/summary` — KPI summary
 - `GET /api/analytics/monthly-report` — Monthly report export
+
+Implemented analytics endpoints:
+- `GET /api/analytics/summary`
+- `GET /api/analytics/campaigns/:id`
+- `POST /api/analytics/campaigns/:id/recalculate`
+- `GET /api/analytics/quarterly-report?year=YYYY&quarter=1-4`
 
 ## Database Schema
 
