@@ -1,6 +1,11 @@
 import { Router, Request, Response } from 'express';
 import { authenticateToken } from '../middleware/auth';
-import { pool } from '../db';
+import {
+  getLatestProgress,
+  getProgressTimeline,
+  getTopicMastery,
+  recalculateProgressSnapshot,
+} from '../services/progress.service';
 
 const router = Router();
 
@@ -10,21 +15,14 @@ const router = Router();
  */
 router.get('/', authenticateToken, async (req: Request, res: Response) => {
   try {
-    // TODO: Implement progress calculation from database
-    // For now, return mock data
-    const mockProgress = {
-      totalQuizzesCompleted: 5,
-      averageScore: 82.5,
-      improvementPercentage: 15.5,
-      topicScores: {
-        phishing: 0.85,
-        password_hygiene: 0.80,
-        data_breach: 0.82,
-        social_engineering: 0.78,
-      },
-    };
+    let progress = await getLatestProgress(req.userId!);
 
-    res.json(mockProgress);
+    // Auto-refresh snapshot when the user has historical attempts but no snapshot yet.
+    if (progress.totalQuizzesCompleted === 0) {
+      progress = await recalculateProgressSnapshot(req.userId!);
+    }
+
+    res.json(progress);
   } catch (error) {
     console.error('Progress fetch error:', error);
     res.status(500).json({ error: 'Failed to fetch progress' });
@@ -37,8 +35,8 @@ router.get('/', authenticateToken, async (req: Request, res: Response) => {
  */
 router.get('/timeline', authenticateToken, async (req: Request, res: Response) => {
   try {
-    // TODO: Implement timeline from user_progress_snapshots table
-    res.status(501).json({ error: 'Not yet implemented' });
+    const timeline = await getProgressTimeline(req.userId!);
+    res.json({ timeline });
   } catch (error) {
     console.error('Timeline fetch error:', error);
     res.status(500).json({ error: 'Failed to fetch timeline' });
@@ -51,8 +49,8 @@ router.get('/timeline', authenticateToken, async (req: Request, res: Response) =
  */
 router.get('/topics', authenticateToken, async (req: Request, res: Response) => {
   try {
-    // TODO: Implement topic mastery calculations
-    res.status(501).json({ error: 'Not yet implemented' });
+    const topicScores = await getTopicMastery(req.userId!);
+    res.json({ topicScores });
   } catch (error) {
     console.error('Topics fetch error:', error);
     res.status(500).json({ error: 'Failed to fetch topics' });

@@ -13,12 +13,22 @@ interface QuizData {
   questions: QuizQuestion[];
 }
 
+interface QuizSubmitResponse {
+  score: number;
+  passed: boolean;
+  correctAnswers: number;
+  totalQuestions: number;
+  topicScores: Record<string, number>;
+  feedback: string;
+}
+
 export const QuizPlayer: React.FC = () => {
   const [quiz, setQuiz] = useState<QuizData | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, number>>({});
   const [submitted, setSubmitted] = useState(false);
   const [score, setScore] = useState<number | null>(null);
+  const [result, setResult] = useState<QuizSubmitResponse | null>(null);
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -46,12 +56,13 @@ export const QuizPlayer: React.FC = () => {
   const handleSubmitQuiz = async () => {
     try {
       const token = localStorage.getItem('authToken');
-      const response = await axios.post(
+      const response = await axios.post<QuizSubmitResponse>(
         `/api/quiz/${quiz!.sessionId}/submit`,
         { answers },
         { headers: { Authorization: `Bearer ${token}` } }
       );
       setScore(response.data.score);
+      setResult(response.data);
       setSubmitted(true);
     } catch (err) {
       console.error('Failed to submit quiz:', err);
@@ -64,6 +75,11 @@ export const QuizPlayer: React.FC = () => {
       <div className="quiz-result">
         <h2>Quiz Complete!</h2>
         <p>Your Score: <strong>{score}%</strong></p>
+        {result && (
+          <p>
+            Correct Answers: <strong>{result.correctAnswers}</strong> / {result.totalQuestions}
+          </p>
+        )}
         <button onClick={() => window.location.href = '/dashboard'}>
           Back to Dashboard
         </button>
