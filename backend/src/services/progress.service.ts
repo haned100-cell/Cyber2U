@@ -7,6 +7,13 @@ export interface ProgressSnapshot {
   topicScores: Record<string, number>;
 }
 
+export interface TopicScoreHistoryPoint {
+  sessionId: number;
+  completedAt: string;
+  totalScore: number;
+  topicScores: Record<string, number>;
+}
+
 function roundToTwo(value: number): number {
   return Math.round(value * 100) / 100;
 }
@@ -141,4 +148,49 @@ export async function getProgressTimeline(userId: number): Promise<Array<{ month
 export async function getTopicMastery(userId: number): Promise<Record<string, number>> {
   const latest = await getLatestProgress(userId);
   return latest.topicScores;
+}
+
+export async function getTopicScoreHistory(userId: number): Promise<TopicScoreHistoryPoint[]> {
+  const result = await pool.query(
+    `SELECT
+       qs.id AS session_id,
+       qs.completed_at,
+       COALESCE(qs.total_score, 0)::float AS total_score,
+       COALESCE(
+         jsonb_object_agg(ts.topic, ts.mastery)
+           FILTER (WHERE ts.topic IS NOT NULL),
+         '{}'::jsonb
+       ) AS topic_scores
+     FROM quiz_sessions qs
+     LEFT JOIN (
+       SELECT
+         qa.session_id,
+         COALESCE(q.topic_category, 'general') AS topic,
+         ROUND(
+           COALESCE(
+             SUM(CASE WHEN qa.is_correct THEN COALESCE(q.weight, 1) ELSE 0 END)::numeric
+             / NULLIF(SUM(COALESCE(q.weight, 1))::numeric, 0),
+             0
+           ) * 100,
+           2
+         ) AS mastery
+       FROM quiz_attempts qa
+       JOIN quiz_questions q ON q.id = qa.question_id
+       WHERE qa.user_id = $1
+         AND qa.session_id IS NOT NULL
+       GROUP BY qa.session_id, COALESCE(q.topic_category, 'general')
+     ) ts ON ts.session_id = qs.id
+     WHERE qs.user_id = $1
+       AND qs.completed_at IS NOT NULL
+     GROUP BY qs.id
+     ORDER BY qs.completed_at ASC`,
+    [userId]
+  );
+
+  return result.rows.map((row) => ({
+    sessionId: Number(row.session_id),
+    completedAt: row.completed_at,
+    totalScore: Number(row.total_score || 0),
+    topicScores: row.topic_scores || {},
+  }));
 }

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { api } from '../lib/api';
 
@@ -7,8 +7,14 @@ export const VerifyEmail: React.FC = () => {
   const navigate = useNavigate();
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState('');
+  const hasAttemptedVerification = useRef(false);
 
   useEffect(() => {
+    if (hasAttemptedVerification.current) {
+      return;
+    }
+    hasAttemptedVerification.current = true;
+
     const verify = async () => {
       const token = searchParams.get('token');
 

@@ -74,7 +74,7 @@ test.describe('MailHog Inbox Screenshots', () => {
 
     await expect(page.getByText(signupEmail).first()).toBeVisible();
     await page.screenshot({
-      path: screenshotPath('04-mailhog-inbox.png'),
+      path: screenshotPath('04-completed-quizzes-overlay.png'),
       fullPage: true,
     });
 
@@ -82,7 +82,7 @@ test.describe('MailHog Inbox Screenshots', () => {
     await page.waitForTimeout(1000);
 
     await page.screenshot({
-      path: screenshotPath('05-mailhog-message.png'),
+      path: screenshotPath('08-mailhog-verify-message.png'),
       fullPage: true,
     });
   });

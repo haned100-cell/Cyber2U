@@ -35,7 +35,7 @@ test.describe('Cyber2U Usage Screenshots', () => {
     await page.goto('/quiz');
     await expect(page.getByText('Loading quiz...')).toBeVisible();
     await page.screenshot({
-      path: screenshotPath('03-quiz-page.png'),
+      path: screenshotPath('03-improvement-overlay.png'),
       fullPage: true,
     });
   });

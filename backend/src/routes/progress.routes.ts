@@ -3,6 +3,7 @@ import { authenticateToken } from '../middleware/auth';
 import {
   getLatestProgress,
   getProgressTimeline,
+  getTopicScoreHistory,
   getTopicMastery,
   recalculateProgressSnapshot,
 } from '../services/progress.service';
@@ -54,6 +55,20 @@ router.get('/topics', authenticateToken, async (req: Request, res: Response) => 
   } catch (error) {
     console.error('Topics fetch error:', error);
     res.status(500).json({ error: 'Failed to fetch topics' });
+  }
+});
+
+/**
+ * GET /api/progress/topic-history
+ * Get session-by-session score progression per topic
+ */
+router.get('/topic-history', authenticateToken, async (req: Request, res: Response) => {
+  try {
+    const history = await getTopicScoreHistory(req.userId!);
+    res.json({ history });
+  } catch (error) {
+    console.error('Topic history fetch error:', error);
+    res.status(500).json({ error: 'Failed to fetch topic history' });
   }
 });
 

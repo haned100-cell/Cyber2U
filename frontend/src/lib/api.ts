@@ -20,6 +20,44 @@ interface ProgressData {
   topicScores: Record<string, number>;
 }
 
+export interface TopicHistoryPoint {
+  sessionId: number;
+  completedAt: string;
+  totalScore: number;
+  topicScores: Record<string, number>;
+}
+
+export interface QuizHistoryItem {
+  sessionId: number;
+  sessionType: 'weekly' | 'monthly';
+  startedAt: string;
+  completedAt: string;
+  totalScore: number;
+  passed: boolean;
+  questionCount: number;
+}
+
+export interface QuizReviewQuestion {
+  questionId: number;
+  questionText: string;
+  questionType: string;
+  selectedOptionId: number;
+  correctOptionId: number;
+  selectedOptionText: string;
+  correctOptionText: string;
+  isCorrect: boolean;
+  options: Array<{ id: number; option_text: string }>;
+}
+
+export interface QuizReviewPayload {
+  sessionId: number;
+  sessionType: 'weekly' | 'monthly';
+  completedAt: string;
+  totalScore: number;
+  passed: boolean;
+  questions: QuizReviewQuestion[];
+}
+
 interface ProfileData {
   id: number;
   email: string;
@@ -139,9 +177,34 @@ class ApiClient {
     return response.data;
   }
 
+  async getTopicHistory(): Promise<TopicHistoryPoint[]> {
+    const response = await this.client.get<{ history: TopicHistoryPoint[] }>('/progress/topic-history');
+    return response.data.history;
+  }
+
   // Quiz
   async getWeeklyQuiz() {
     const response = await this.client.get('/quiz/weekly');
+    return response.data;
+  }
+
+  async getMonthlyQuiz() {
+    const response = await this.client.get('/quiz/monthly');
+    return response.data;
+  }
+
+  async getQuizHistory(): Promise<QuizHistoryItem[]> {
+    const response = await this.client.get<{ sessions: QuizHistoryItem[] }>('/quiz/history');
+    return response.data.sessions;
+  }
+
+  async getQuizReview(sessionId: number): Promise<QuizReviewPayload> {
+    const response = await this.client.get<QuizReviewPayload>(`/quiz/${sessionId}/review`);
+    return response.data;
+  }
+
+  async redoQuiz(sessionId: number) {
+    const response = await this.client.post(`/quiz/${sessionId}/redo`);
     return response.data;
   }
 

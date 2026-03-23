@@ -61,10 +61,13 @@ services:
     ports:
       - "3001:3001"
     environment:
-      VITE_API_URL: http://localhost:3000
+      VITE_API_URL: http://backend:3000
     volumes:
       - ./frontend/src:/app/src
     command: npm run dev
+    depends_on:
+      backend:
+        condition: service_started
 
   sim-user:
     build:

@@ -40,7 +40,7 @@ export async function createEmailVerification(userId: number): Promise<string> {
   await pool.query(
     `INSERT INTO email_verifications (user_id, token, expires_at) 
      VALUES ($1, $2, $3)
-     ON CONFLICT (user_id) DO UPDATE SET token = $2, expires_at = $3`,
+     ON CONFLICT (user_id) DO UPDATE SET token = $2, expires_at = $3, verified_at = NULL`,
     [userId, token, expiresAt]
   );
 

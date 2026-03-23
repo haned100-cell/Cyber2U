@@ -16,9 +16,11 @@ These screenshots are generated from a Playwright run and committed to this repo
 
 ![Signup Page](docs/screenshots/01-signup-page.png)
 ![Dashboard Page](docs/screenshots/02-dashboard-page.png)
-![Quiz Page](docs/screenshots/03-quiz-page.png)
-![MailHog Inbox](docs/screenshots/04-mailhog-inbox.png)
-![MailHog Message](docs/screenshots/05-mailhog-message.png)
+![Improvement Overlay](docs/screenshots/03-improvement-overlay.png)
+![Completed Quizzes Overlay](docs/screenshots/04-completed-quizzes-overlay.png)
+![Quiz In Progress](docs/screenshots/05-quiz-in-progress.png)
+![Completed Quiz Review](docs/screenshots/08-completed-quiz-review.png)
+![Case Study Question](docs/screenshots/09-case-study-question.png)
 
 Walkthrough video (Playwright-generated):
 - [Cyber2U App Walkthrough](docs/videos/cyber2u-walkthrough.webm)
