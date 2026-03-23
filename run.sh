@@ -16,9 +16,9 @@ NC='\033[0m' # No Color
 # Configuration
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$SCRIPT_DIR"
-BACKEND_URL="http://localhost:3000"
-FRONTEND_URL="http://localhost:3001"
-MAILHOG_URL="http://localhost:8025"
+BACKEND_URL="http://localhost:3000" #Backend api site
+FRONTEND_URL="http://localhost:3001" #Web-APP
+MAILHOG_URL="http://localhost:8025" # MailHog Web app 
 DB_HOST="localhost"
 DB_PORT="5432"
 DB_NAME="cyber2u_db"

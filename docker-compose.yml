@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -22,11 +20,6 @@ services:
     ports:
       - "1025:1025"  # SMTP
       - "8025:8025"  # Web UI
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8025"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   backend:
     build:
@@ -49,7 +42,7 @@ services:
       postgres:
         condition: service_healthy
       mailhog:
-        condition: service_healthy
+        condition: service_started
     volumes:
       - ./backend/src:/app/src
     command: npm run dev
@@ -82,7 +75,7 @@ services:
       backend:
         condition: service_started
       mailhog:
-        condition: service_healthy
+        condition: service_started
     profiles:
       - simulation
 
