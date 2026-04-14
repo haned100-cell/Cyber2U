@@ -6,6 +6,7 @@ import { VerifyEmail } from './pages/VerifyEmail';
 import { LearnerDashboard } from './pages/LearnerDashboard';
 import { QuizPlayer } from './pages/QuizPlayer';
 import { DemoUserBootstrap } from './pages/DemoUserBootstrap';
+import { FeedbackForm } from './pages/FeedbackForm';
 import './index.css';
 
 const AppShell: React.FC = () => {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/demo-user" element={<DemoUserBootstrap />} />
           <Route path="/dashboard" element={<LearnerDashboard />} />
           <Route path="/quiz" element={<QuizPlayer />} />
+          <Route path="/feedback" element={<FeedbackForm />} />
         </Route>
       </Routes>
     </Router>

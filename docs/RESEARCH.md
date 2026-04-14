@@ -12,7 +12,9 @@
 
 ## Abstract
 
-This document presents a mixed methods research analysis of the content delivery strategies employed within the Cyber2U platform. Cyber2U is an email-driven cybersecurity awareness application designed to improve literacy, engagement, and measurable knowledge gains among learners. This document examines the theoretical and practical foundations of the platform's quiz design (including the rationale for combining qualitative and quantitative, short-form and long-form question types), conducts SWOT analyses of five leading competing platforms and of Cyber2U itself, and evaluates how the system's architecture is designed to support personalised, evidence-based learning. A methodology section describes the mixed methods research approach; a research section synthesises relevant literature and comparative analysis; and a validation section outlines the success criteria, KPIs, and testing strategy by which the platform's effectiveness will be evaluated.
+This document presents a mixed methods research analysis of the content delivery strategies employed within the Cyber2U platform. Cyber2U is an email-driven cybersecurity awareness application designed to improve literacy, engagement, and measurable knowledge gains among learners. This document examines the theoretical and practical foundations of the platform's quiz design (including the rationale for combining qualitative and quantitative, short-form and long-form question types), conducts SWOT analyses of five leading competing platforms and of Cyber2U itself, and evaluates how the system's architecture is designed to support personalised, evidence-based learning. A methodology section describes the mixed methods research approach; a research section synthesises relevant literature and comparative analysis; and a validation/results section outlines success criteria, KPIs, simulation outputs, limitations, and ethics constraints for the current phase.
+
+For this project stage, the empirical strand is implemented as a reproducible synthetic simulation protocol (20 automated learner journeys) rather than a human-subject participant study. Accordingly, all reported outcome artifacts are interpreted as simulation evidence for proof-of-concept validation.
 
 ---
 
@@ -26,7 +28,7 @@ This document presents a mixed methods research analysis of the content delivery
    - 3.3 [SWOT Analysis of Cyber2U](#33-swot-analysis-of-cyber2u)
    - 3.4 [Quiz Design Rationale](#34-quiz-design-rationale)
    - 3.5 [How the System Supports and Improves Learning Per User](#35-how-the-system-supports-and-improves-learning-per-user)
-4. [Validation](#4-validation)
+4. [Validation and Results](#4-validation-and-results)
 5. [Conclusion](#5-conclusion)
 6. [References](#6-references)
 
@@ -70,9 +72,42 @@ The quantitative strand involves:
 
 Quantitative findings (e.g., a 20% target improvement in quiz scores) are interpreted alongside qualitative insights (e.g., why spaced repetition and retrieval practice theoretically produce score gains) to produce integrated conclusions about platform design effectiveness. The SWOT analyses, which blend objective feature comparison (quantitative) with strategic assessment of strengths and weaknesses (qualitative), are themselves a product of this integration.
 
-### 2.5 Limitations
+### 2.5 Simulation Protocol (PoC Evaluation)
 
-- As Cyber2U is at an early stage of development, longitudinal outcome data is not yet available; the quantitative strand draws on theoretical projections and pilot targets rather than empirical results.
+Given project-stage constraints and ethics boundaries, the empirical procedure in this phase uses synthetic users instead of human participants. The protocol was executed through automated end-to-end journeys against the running Cyber2U stack via `frontend/scripts/generateSyntheticStudyArtifacts.mjs`.
+
+Protocol flow:
+
+1. Start PostgreSQL, backend API, frontend app, and MailHog via Docker Compose.
+2. Generate 20 synthetic learner accounts (`study.user01@cyber2u.local` to `study.user20@cyber2u.local`) through `/api/auth/demo-bootstrap`.
+3. Assign varied interest-topic combinations and journey variants (`weekly-focused`, `monthly-focused`, `interest-customization`, `mixed-flow`).
+4. Execute dashboard and quiz journeys; capture per-user screenshots.
+5. Submit one structured feedback response per synthetic user through `/api/feedback`.
+6. Export corpus artifacts:
+   - `docs/validation/synthetic_feedback_dataset.json`
+   - `docs/validation/synthetic_feedback_dataset.csv`
+   - `docs/validation/feedback_forms/feedback_01.md` ... `feedback_20.md`
+   - `docs/screenshots/study/user_XX_dashboard.png` and `user_XX_quiz.png`
+7. Generate summary charts from the dataset using `scripts/generate_validation_charts.py`.
+
+### 2.6 Ethics and Transparency Statement
+
+This dissertation does **not** claim a completed human-subject participant study in the current phase. Generated forms, journeys, and charts are explicitly labelled synthetic and are used to validate instrumentation, workflow reproducibility, and reporting capability.
+
+Ethics controls applied:
+
+- No attribution to real individuals.
+- No collection of personal data beyond synthetic test identities.
+- Explicit synthetic-evidence labeling in each generated feedback artifact.
+- Clear separation between simulation findings and future human-study claims.
+
+### 2.7 Methodological Limitations
+
+- Synthetic responses do not model real human motivation, misunderstanding, fatigue, or workplace context.
+- Satisfaction and recommendation values in this phase reflect scripted distributions, not observed sentiment.
+- Findings support engineering readiness and analytics validity, but not population-level educational generalisation.
+- Human-subject evaluation remains future work requiring recruitment, consent, and formal ethics governance.
+- As Cyber2U is at an early stage of development, longitudinal outcome data is not yet available; the quantitative strand draws on theoretical projections and pilot targets rather than long-run empirical outcomes.
 - Competitive SWOT analyses rely on publicly available information; proprietary pricing, algorithm, and outcome data from competitors may not be fully disclosed.
 
 ---
@@ -369,7 +404,7 @@ These metrics enable the platform administrator (and in future, the organisation
 
 ---
 
-## 4. Validation
+## 4. Validation and Results
 
 ### 4.1 Success Criteria and KPIs
 
@@ -434,6 +469,31 @@ Quantitative metrics alone cannot fully validate a learning platform's effective
 
 4. **Longitudinal cohort study** (if pilot is extended to 6+ months): comparison of quiz score trajectories between high-engagement and low-engagement learner cohorts using `user_progress_snapshots` data.
 
+### 4.4 Results (Synthetic PoC Evidence)
+
+The simulation protocol produced a reproducible corpus of 20 end-to-end learner journeys and linked validation artifacts:
+
+- 20 structured feedback forms (`docs/validation/feedback_forms/`)
+- 40 journey screenshots (dashboard + quiz per user) (`docs/screenshots/study/`)
+- Machine-readable datasets (`docs/validation/synthetic_feedback_dataset.json` and `.csv`)
+- Three matplotlib summary charts (`docs/validation/charts/`)
+
+Observed synthetic metrics from the generated corpus (`n = 20`):
+
+- Mean usability rating: **4.0 / 5**
+- Mean content clarity rating: **4.0 / 5**
+- Mean confidence-improvement rating: **4.0 / 5**
+- Mean recommendation score: **8.0 / 10**
+- Would-continue responses: **16 / 20 (80%)**
+
+Chart-level interpretation:
+
+1. **Rating distribution** (`rating_distribution.png`) concentrates responses in the upper-mid range (3-5), showing a predominantly positive synthetic response profile.
+2. **Recommendation by journey variant** (`recommendation_by_variant.png`) demonstrates segmented reporting across weekly, monthly, interest-customised, and mixed journeys.
+3. **Continuation intent** (`continuation_intent.png`) validates binary sentiment aggregation and visualisation for retention-oriented reporting.
+
+These results demonstrate that Cyber2U can capture, store, and analyse mixed evidence types (ratings, qualitative feedback, and screenshots) in a reproducible pipeline. They must be interpreted as **simulation results**, not human-participant outcomes.
+
 ---
 
 ## 5. Conclusion
@@ -442,7 +502,7 @@ Cyber2U's content delivery approach is grounded in an evidence-based integration
 
 Compared to enterprise competitors (KnowBe4, Proofpoint, Cofense, SANS, Terranova), Cyber2U occupies a distinct niche: low-friction, email-native, GDPR-compliant, and accessible to organisations without enterprise budgets or IT teams. Its primary weaknesses — a limited question bank, no phishing simulation, and no AI personalisation — represent clear development priorities for future phases.
 
-The validation framework defined in Section 4 provides a rigorous basis for evaluating whether these design choices produce the intended outcomes: a 20% improvement in average quiz scores, 75% participation, and 85% learner satisfaction. As the platform matures and longitudinal data accumulates, the mixed methods evaluation approach described in Section 2 will allow increasingly confident claims about Cyber2U's effectiveness as a cybersecurity awareness intervention.
+The validation framework defined in Section 4 provides a rigorous basis for evaluating whether these design choices produce the intended outcomes: a 20% improvement in average quiz scores, 75% participation, and 85% learner satisfaction. In the current phase, generated evidence demonstrates simulation readiness, analytics traceability, and workflow reproducibility rather than human-subject efficacy. As the platform matures and longitudinal participant data accumulates under appropriate ethics controls, the mixed methods evaluation approach described in Section 2 will support increasingly confident claims about Cyber2U's effectiveness as a cybersecurity awareness intervention.
 
 ---
 

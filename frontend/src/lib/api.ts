@@ -119,6 +119,37 @@ export interface QuarterlyReport {
   };
 }
 
+export interface FeedbackSubmissionPayload {
+  journeyLabel: string;
+  journeyVariant: string;
+  usabilityRating: number;
+  contentClarityRating: number;
+  confidenceImprovementRating: number;
+  recommendationRating: number;
+  mostValuableFeature: string;
+  biggestPainPoint?: string;
+  suggestedImprovement?: string;
+  wouldContinue: boolean;
+  screenshots: string[];
+}
+
+export interface FeedbackResponse {
+  id: number;
+  user_id: number;
+  journey_label: string;
+  journey_variant: string;
+  usability_rating: number;
+  content_clarity_rating: number;
+  confidence_improvement_rating: number;
+  recommendation_rating: number;
+  most_valuable_feature: string;
+  biggest_pain_point: string | null;
+  suggested_improvement: string | null;
+  would_continue: boolean;
+  screenshots: string[];
+  created_at: string;
+}
+
 class ApiClient {
   private client: AxiosInstance;
 
@@ -264,6 +295,16 @@ class ApiClient {
   async getAnalyticsSummary(): Promise<AnalyticsSummary> {
     const response = await this.client.get<{ summary: AnalyticsSummary }>('/analytics/summary');
     return response.data.summary;
+  }
+
+  async submitFeedback(payload: FeedbackSubmissionPayload): Promise<FeedbackResponse> {
+    const response = await this.client.post<{ response: FeedbackResponse }>('/feedback', payload);
+    return response.data.response;
+  }
+
+  async getMyFeedbackResponses(): Promise<FeedbackResponse[]> {
+    const response = await this.client.get<{ responses: FeedbackResponse[] }>('/feedback/mine');
+    return response.data.responses;
   }
 
   async getCampaignAnalytics(campaignId: number): Promise<{

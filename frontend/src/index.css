@@ -737,6 +737,42 @@ button:disabled {
   color: #166534;
 }
 
+.feedback-panel {
+  max-width: 840px;
+  margin: 10px auto 0;
+}
+
+.feedback-panel h2 {
+  margin: 0;
+}
+
+.feedback-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.feedback-toggle input {
+  width: auto;
+  margin: 0;
+}
+
+.feedback-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.feedback-actions button {
+  margin: 0;
+}
+
+.feedback-actions .secondary-button {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
 @media (max-width: 900px) {
   .dashboard-hero {
     flex-direction: column;
@@ -761,5 +797,9 @@ button:disabled {
   .quiz-progress-meter {
     width: 100%;
     margin-top: 0;
+  }
+
+  .feedback-actions {
+    flex-direction: column;
   }
 }

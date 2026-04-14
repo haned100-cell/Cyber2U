@@ -1,0 +1,521 @@
+[
+  {
+    "participantId": "01",
+    "alias": "Synthetic Participant 01",
+    "email": "study.user01@cyber2u.local",
+    "journeyLabel": "Journey-01-weekly-focused",
+    "journeyVariant": "weekly-focused",
+    "interestTopics": [
+      "phishing",
+      "password_hygiene",
+      "social_engineering"
+    ],
+    "usabilityRating": 4,
+    "contentClarityRating": 5,
+    "confidenceImprovementRating": 3,
+    "recommendationRating": 6,
+    "mostValuableFeature": "Topic mastery cards made weak spots obvious.",
+    "biggestPainPoint": "I wanted clearer labels between weekly and monthly pathways.",
+    "suggestedImprovement": "Add role-based tracks so content adapts by learner profile.",
+    "wouldContinue": false,
+    "screenshots": [
+      "docs/screenshots/study/user_01_dashboard.png",
+      "docs/screenshots/study/user_01_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:12.918Z"
+  },
+  {
+    "participantId": "02",
+    "alias": "Synthetic Participant 02",
+    "email": "study.user02@cyber2u.local",
+    "journeyLabel": "Journey-02-monthly-focused",
+    "journeyVariant": "monthly-focused",
+    "interestTopics": [
+      "password_hygiene",
+      "social_engineering",
+      "malware",
+      "ransomware"
+    ],
+    "usabilityRating": 5,
+    "contentClarityRating": 3,
+    "confidenceImprovementRating": 4,
+    "recommendationRating": 7,
+    "mostValuableFeature": "The case-study format felt realistic and memorable.",
+    "biggestPainPoint": "Some questions felt text-heavy on smaller screens.",
+    "suggestedImprovement": "Provide a printable monthly performance snapshot.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_02_dashboard.png",
+      "docs/screenshots/study/user_02_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:19.999Z"
+  },
+  {
+    "participantId": "03",
+    "alias": "Synthetic Participant 03",
+    "email": "study.user03@cyber2u.local",
+    "journeyLabel": "Journey-03-interest-customization",
+    "journeyVariant": "interest-customization",
+    "interestTopics": [
+      "social_engineering",
+      "malware",
+      "ransomware",
+      "identity_theft",
+      "data_privacy"
+    ],
+    "usabilityRating": 3,
+    "contentClarityRating": 4,
+    "confidenceImprovementRating": 5,
+    "recommendationRating": 8,
+    "mostValuableFeature": "Progress KPIs made it easy to measure improvement each session.",
+    "biggestPainPoint": "I expected a stronger reminder when an answer was not selected.",
+    "suggestedImprovement": "Include a benchmark comparison against previous attempts.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_03_dashboard.png",
+      "docs/screenshots/study/user_03_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:24.761Z"
+  },
+  {
+    "participantId": "04",
+    "alias": "Synthetic Participant 04",
+    "email": "study.user04@cyber2u.local",
+    "journeyLabel": "Journey-04-mixed-flow",
+    "journeyVariant": "mixed-flow",
+    "interestTopics": [
+      "malware",
+      "ransomware",
+      "identity_theft"
+    ],
+    "usabilityRating": 4,
+    "contentClarityRating": 5,
+    "confidenceImprovementRating": 3,
+    "recommendationRating": 9,
+    "mostValuableFeature": "Weekly quiz flow was short enough to complete consistently.",
+    "biggestPainPoint": "The first load felt slow before dashboard data appeared.",
+    "suggestedImprovement": "Add short explainer videos for key cybersecurity concepts.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_04_dashboard.png",
+      "docs/screenshots/study/user_04_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:29.514Z"
+  },
+  {
+    "participantId": "05",
+    "alias": "Synthetic Participant 05",
+    "email": "study.user05@cyber2u.local",
+    "journeyLabel": "Journey-05-weekly-focused",
+    "journeyVariant": "weekly-focused",
+    "interestTopics": [
+      "ransomware",
+      "identity_theft",
+      "data_privacy",
+      "device_security"
+    ],
+    "usabilityRating": 5,
+    "contentClarityRating": 3,
+    "confidenceImprovementRating": 4,
+    "recommendationRating": 10,
+    "mostValuableFeature": "Monthly assessment gave me confidence in long-form recall.",
+    "biggestPainPoint": "I wanted more examples for advanced phishing scenarios.",
+    "suggestedImprovement": "Allow scheduling quiz reminders from inside the dashboard.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_05_dashboard.png",
+      "docs/screenshots/study/user_05_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:34.239Z"
+  },
+  {
+    "participantId": "06",
+    "alias": "Synthetic Participant 06",
+    "email": "study.user06@cyber2u.local",
+    "journeyLabel": "Journey-06-monthly-focused",
+    "journeyVariant": "monthly-focused",
+    "interestTopics": [
+      "identity_theft",
+      "data_privacy",
+      "device_security",
+      "safe_browsing",
+      "incident_response"
+    ],
+    "usabilityRating": 3,
+    "contentClarityRating": 4,
+    "confidenceImprovementRating": 5,
+    "recommendationRating": 6,
+    "mostValuableFeature": "Interest customization made content more relevant to my role.",
+    "biggestPainPoint": "A compact mobile layout would improve single-hand usage.",
+    "suggestedImprovement": "Add context tips beside each interest area checkbox.",
+    "wouldContinue": false,
+    "screenshots": [
+      "docs/screenshots/study/user_06_dashboard.png",
+      "docs/screenshots/study/user_06_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:41.158Z"
+  },
+  {
+    "participantId": "07",
+    "alias": "Synthetic Participant 07",
+    "email": "study.user07@cyber2u.local",
+    "journeyLabel": "Journey-07-interest-customization",
+    "journeyVariant": "interest-customization",
+    "interestTopics": [
+      "data_privacy",
+      "device_security",
+      "safe_browsing"
+    ],
+    "usabilityRating": 4,
+    "contentClarityRating": 5,
+    "confidenceImprovementRating": 3,
+    "recommendationRating": 7,
+    "mostValuableFeature": "Immediate quiz feedback helped me correct misconceptions quickly.",
+    "biggestPainPoint": "I needed an at-a-glance summary before opening full quiz review.",
+    "suggestedImprovement": "Expose a confidence trend chart for each topic family.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_07_dashboard.png",
+      "docs/screenshots/study/user_07_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:45.884Z"
+  },
+  {
+    "participantId": "08",
+    "alias": "Synthetic Participant 08",
+    "email": "study.user08@cyber2u.local",
+    "journeyLabel": "Journey-08-mixed-flow",
+    "journeyVariant": "mixed-flow",
+    "interestTopics": [
+      "device_security",
+      "safe_browsing",
+      "incident_response",
+      "phishing"
+    ],
+    "usabilityRating": 5,
+    "contentClarityRating": 3,
+    "confidenceImprovementRating": 4,
+    "recommendationRating": 8,
+    "mostValuableFeature": "Dashboard visuals gave a strong sense of momentum over time.",
+    "biggestPainPoint": "The top navigation could link directly to feedback submission.",
+    "suggestedImprovement": "Add optional accessibility presets for larger text sizes.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_08_dashboard.png",
+      "docs/screenshots/study/user_08_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:50.618Z"
+  },
+  {
+    "participantId": "09",
+    "alias": "Synthetic Participant 09",
+    "email": "study.user09@cyber2u.local",
+    "journeyLabel": "Journey-09-weekly-focused",
+    "journeyVariant": "weekly-focused",
+    "interestTopics": [
+      "safe_browsing",
+      "incident_response",
+      "phishing",
+      "password_hygiene",
+      "social_engineering"
+    ],
+    "usabilityRating": 3,
+    "contentClarityRating": 4,
+    "confidenceImprovementRating": 5,
+    "recommendationRating": 9,
+    "mostValuableFeature": "The onboarding and email verification flow was straightforward.",
+    "biggestPainPoint": "The progress bar context could explain what counts toward yearly target.",
+    "suggestedImprovement": "Support sharing selected progress highlights with managers.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_09_dashboard.png",
+      "docs/screenshots/study/user_09_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:33:55.392Z"
+  },
+  {
+    "participantId": "10",
+    "alias": "Synthetic Participant 10",
+    "email": "study.user10@cyber2u.local",
+    "journeyLabel": "Journey-10-monthly-focused",
+    "journeyVariant": "monthly-focused",
+    "interestTopics": [
+      "incident_response",
+      "phishing",
+      "password_hygiene"
+    ],
+    "usabilityRating": 4,
+    "contentClarityRating": 5,
+    "confidenceImprovementRating": 3,
+    "recommendationRating": 10,
+    "mostValuableFeature": "Review mode on completed quizzes clarified right and wrong answers.",
+    "biggestPainPoint": "I wanted optional hints for case-study questions.",
+    "suggestedImprovement": "Provide follow-up resources after each incorrect answer.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_10_dashboard.png",
+      "docs/screenshots/study/user_10_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:02.267Z"
+  },
+  {
+    "participantId": "11",
+    "alias": "Synthetic Participant 11",
+    "email": "study.user11@cyber2u.local",
+    "journeyLabel": "Journey-11-interest-customization",
+    "journeyVariant": "interest-customization",
+    "interestTopics": [
+      "phishing",
+      "password_hygiene",
+      "social_engineering",
+      "malware"
+    ],
+    "usabilityRating": 5,
+    "contentClarityRating": 3,
+    "confidenceImprovementRating": 4,
+    "recommendationRating": 6,
+    "mostValuableFeature": "Topic mastery cards made weak spots obvious.",
+    "biggestPainPoint": "I wanted clearer labels between weekly and monthly pathways.",
+    "suggestedImprovement": "Add role-based tracks so content adapts by learner profile.",
+    "wouldContinue": false,
+    "screenshots": [
+      "docs/screenshots/study/user_11_dashboard.png",
+      "docs/screenshots/study/user_11_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:07.004Z"
+  },
+  {
+    "participantId": "12",
+    "alias": "Synthetic Participant 12",
+    "email": "study.user12@cyber2u.local",
+    "journeyLabel": "Journey-12-mixed-flow",
+    "journeyVariant": "mixed-flow",
+    "interestTopics": [
+      "password_hygiene",
+      "social_engineering",
+      "malware",
+      "ransomware",
+      "identity_theft"
+    ],
+    "usabilityRating": 3,
+    "contentClarityRating": 4,
+    "confidenceImprovementRating": 5,
+    "recommendationRating": 7,
+    "mostValuableFeature": "The case-study format felt realistic and memorable.",
+    "biggestPainPoint": "Some questions felt text-heavy on smaller screens.",
+    "suggestedImprovement": "Provide a printable monthly performance snapshot.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_12_dashboard.png",
+      "docs/screenshots/study/user_12_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:11.712Z"
+  },
+  {
+    "participantId": "13",
+    "alias": "Synthetic Participant 13",
+    "email": "study.user13@cyber2u.local",
+    "journeyLabel": "Journey-13-weekly-focused",
+    "journeyVariant": "weekly-focused",
+    "interestTopics": [
+      "social_engineering",
+      "malware",
+      "ransomware"
+    ],
+    "usabilityRating": 4,
+    "contentClarityRating": 5,
+    "confidenceImprovementRating": 3,
+    "recommendationRating": 8,
+    "mostValuableFeature": "Progress KPIs made it easy to measure improvement each session.",
+    "biggestPainPoint": "I expected a stronger reminder when an answer was not selected.",
+    "suggestedImprovement": "Include a benchmark comparison against previous attempts.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_13_dashboard.png",
+      "docs/screenshots/study/user_13_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:16.440Z"
+  },
+  {
+    "participantId": "14",
+    "alias": "Synthetic Participant 14",
+    "email": "study.user14@cyber2u.local",
+    "journeyLabel": "Journey-14-monthly-focused",
+    "journeyVariant": "monthly-focused",
+    "interestTopics": [
+      "malware",
+      "ransomware",
+      "identity_theft",
+      "data_privacy"
+    ],
+    "usabilityRating": 5,
+    "contentClarityRating": 3,
+    "confidenceImprovementRating": 4,
+    "recommendationRating": 9,
+    "mostValuableFeature": "Weekly quiz flow was short enough to complete consistently.",
+    "biggestPainPoint": "The first load felt slow before dashboard data appeared.",
+    "suggestedImprovement": "Add short explainer videos for key cybersecurity concepts.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_14_dashboard.png",
+      "docs/screenshots/study/user_14_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:23.471Z"
+  },
+  {
+    "participantId": "15",
+    "alias": "Synthetic Participant 15",
+    "email": "study.user15@cyber2u.local",
+    "journeyLabel": "Journey-15-interest-customization",
+    "journeyVariant": "interest-customization",
+    "interestTopics": [
+      "ransomware",
+      "identity_theft",
+      "data_privacy",
+      "device_security",
+      "safe_browsing"
+    ],
+    "usabilityRating": 3,
+    "contentClarityRating": 4,
+    "confidenceImprovementRating": 5,
+    "recommendationRating": 10,
+    "mostValuableFeature": "Monthly assessment gave me confidence in long-form recall.",
+    "biggestPainPoint": "I wanted more examples for advanced phishing scenarios.",
+    "suggestedImprovement": "Allow scheduling quiz reminders from inside the dashboard.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_15_dashboard.png",
+      "docs/screenshots/study/user_15_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:28.226Z"
+  },
+  {
+    "participantId": "16",
+    "alias": "Synthetic Participant 16",
+    "email": "study.user16@cyber2u.local",
+    "journeyLabel": "Journey-16-mixed-flow",
+    "journeyVariant": "mixed-flow",
+    "interestTopics": [
+      "identity_theft",
+      "data_privacy",
+      "device_security"
+    ],
+    "usabilityRating": 4,
+    "contentClarityRating": 5,
+    "confidenceImprovementRating": 3,
+    "recommendationRating": 6,
+    "mostValuableFeature": "Interest customization made content more relevant to my role.",
+    "biggestPainPoint": "A compact mobile layout would improve single-hand usage.",
+    "suggestedImprovement": "Add context tips beside each interest area checkbox.",
+    "wouldContinue": false,
+    "screenshots": [
+      "docs/screenshots/study/user_16_dashboard.png",
+      "docs/screenshots/study/user_16_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:32.982Z"
+  },
+  {
+    "participantId": "17",
+    "alias": "Synthetic Participant 17",
+    "email": "study.user17@cyber2u.local",
+    "journeyLabel": "Journey-17-weekly-focused",
+    "journeyVariant": "weekly-focused",
+    "interestTopics": [
+      "data_privacy",
+      "device_security",
+      "safe_browsing",
+      "incident_response"
+    ],
+    "usabilityRating": 5,
+    "contentClarityRating": 3,
+    "confidenceImprovementRating": 4,
+    "recommendationRating": 7,
+    "mostValuableFeature": "Immediate quiz feedback helped me correct misconceptions quickly.",
+    "biggestPainPoint": "I needed an at-a-glance summary before opening full quiz review.",
+    "suggestedImprovement": "Expose a confidence trend chart for each topic family.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_17_dashboard.png",
+      "docs/screenshots/study/user_17_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:37.768Z"
+  },
+  {
+    "participantId": "18",
+    "alias": "Synthetic Participant 18",
+    "email": "study.user18@cyber2u.local",
+    "journeyLabel": "Journey-18-monthly-focused",
+    "journeyVariant": "monthly-focused",
+    "interestTopics": [
+      "device_security",
+      "safe_browsing",
+      "incident_response",
+      "phishing",
+      "password_hygiene"
+    ],
+    "usabilityRating": 3,
+    "contentClarityRating": 4,
+    "confidenceImprovementRating": 5,
+    "recommendationRating": 8,
+    "mostValuableFeature": "Dashboard visuals gave a strong sense of momentum over time.",
+    "biggestPainPoint": "The top navigation could link directly to feedback submission.",
+    "suggestedImprovement": "Add optional accessibility presets for larger text sizes.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_18_dashboard.png",
+      "docs/screenshots/study/user_18_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:44.690Z"
+  },
+  {
+    "participantId": "19",
+    "alias": "Synthetic Participant 19",
+    "email": "study.user19@cyber2u.local",
+    "journeyLabel": "Journey-19-interest-customization",
+    "journeyVariant": "interest-customization",
+    "interestTopics": [
+      "safe_browsing",
+      "incident_response",
+      "phishing"
+    ],
+    "usabilityRating": 4,
+    "contentClarityRating": 5,
+    "confidenceImprovementRating": 3,
+    "recommendationRating": 9,
+    "mostValuableFeature": "The onboarding and email verification flow was straightforward.",
+    "biggestPainPoint": "The progress bar context could explain what counts toward yearly target.",
+    "suggestedImprovement": "Support sharing selected progress highlights with managers.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_19_dashboard.png",
+      "docs/screenshots/study/user_19_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:49.438Z"
+  },
+  {
+    "participantId": "20",
+    "alias": "Synthetic Participant 20",
+    "email": "study.user20@cyber2u.local",
+    "journeyLabel": "Journey-20-mixed-flow",
+    "journeyVariant": "mixed-flow",
+    "interestTopics": [
+      "incident_response",
+      "phishing",
+      "password_hygiene",
+      "social_engineering"
+    ],
+    "usabilityRating": 5,
+    "contentClarityRating": 3,
+    "confidenceImprovementRating": 4,
+    "recommendationRating": 10,
+    "mostValuableFeature": "Review mode on completed quizzes clarified right and wrong answers.",
+    "biggestPainPoint": "I wanted optional hints for case-study questions.",
+    "suggestedImprovement": "Provide follow-up resources after each incorrect answer.",
+    "wouldContinue": true,
+    "screenshots": [
+      "docs/screenshots/study/user_20_dashboard.png",
+      "docs/screenshots/study/user_20_quiz.png"
+    ],
+    "submittedAt": "2026-03-28T17:34:54.189Z"
+  }
+]

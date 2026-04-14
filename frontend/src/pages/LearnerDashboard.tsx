@@ -190,6 +190,9 @@ export const LearnerDashboard: React.FC = () => {
           <a className="dashboard-action secondary" href="/quiz?mode=monthly">
             Start Monthly Assessment
           </a>
+          <a className="dashboard-action secondary" href="/feedback">
+            Submit Feedback Form
+          </a>
         </div>
       </section>
 

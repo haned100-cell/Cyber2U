@@ -193,6 +193,11 @@ Example HTML form (formsubmit -> Cyber2U webhook):
 - `GET /api/analytics/summary` — KPI summary
 - `GET /api/analytics/monthly-report` — Monthly report export
 
+### Feedback (Validation)
+- `POST /api/feedback` — Submit authenticated learner feedback response
+- `GET /api/feedback/mine` — List authenticated learner feedback responses
+- `GET /api/feedback/study-export` — Export recent responses (`x-cyber2u-role: admin` required)
+
 Implemented analytics endpoints:
 - `GET /api/analytics/summary`
 - `GET /api/analytics/campaigns/:id`
@@ -245,7 +250,23 @@ npm test
 # Playwright smoke and screenshot tests
 cd frontend
 npm run test:e2e
+
+# Synthetic 20-user validation artifact generation
+npm run study:synthetic
+
+# Matplotlib validation charts
+cd ..
+python scripts/generate_validation_charts.py
 ```
+
+Synthetic validation outputs are written to:
+- `docs/validation/feedback_forms/`
+- `docs/validation/synthetic_feedback_dataset.json`
+- `docs/validation/synthetic_feedback_dataset.csv`
+- `docs/validation/charts/`
+
+Important methodology note:
+- These generated study artifacts are synthetic PoC evidence and must be reported as simulated evaluation data, not as a real participant study.
 
 ## GDPR & Security
 
